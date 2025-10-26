@@ -13,34 +13,54 @@ class ApplicationFieldsForm
     public static function get(): array
     {
         return [
-                          TextInput::make('site_name')
+            TextInput::make('site_name')
                 ->label(__('filament-general-settings::default.site_name'))
                 ->autofocus()
                 ->columnSpanFull(),
             Textarea::make('site_description')
                 ->label(__('filament-general-settings::default.site_description'))
                 ->columnSpanFull(),
-            Grid::make()->schema([
-                FileUpload::make('site_logo')
-                    ->label(fn () => __('filament-general-settings::default.site_logo'))
-                    ->image()
-                    ->directory('assets')
-                    ->visibility('public')
-                    ->moveFiles()
-                    ->imageEditor()
-                    ->getUploadedFileNameForStorageUsing(fn () => 'site_logo.png')
-                    ->columnSpan(2),
-                FileUpload::make('site_favicon')
-                    ->label(fn () => __('filament-general-settings::default.site_favicon'))
-                    ->image()
-                    ->directory('assets')
-                    ->visibility('public')
-                    ->moveFiles()
-                    ->getUploadedFileNameForStorageUsing(fn () => 'site_favicon.ico')
-                    ->acceptedFileTypes(['image/x-icon', 'image/vnd.microsoft.icon'])
-                    ->columnSpan(2),
-            ])
-                ->columns(4),
+            FileUpload::make('site_logo')
+                ->label(fn() => __('filament-general-settings::default.site_logo'))
+                ->image()
+                ->directory('assets')
+                ->visibility('public')
+                ->moveFiles()
+                ->imageEditor()
+                ->preserveFilenames()
+                ->getUploadedFileNameForStorageUsing(fn($file) => 'site_logo.' . 'png')
+                ->multiple(false)
+                ->columnSpan(1),
+            FileUpload::make('site_favicon')
+                ->label(fn() => __('filament-general-settings::default.site_favicon'))
+                ->image()
+                ->directory('assets')
+                ->visibility('public')
+                ->moveFiles()
+                ->imageEditor()
+                ->preserveFilenames()
+                ->getUploadedFileNameForStorageUsing(fn($file) => 'site_favicon.' . 'ico')
+                ->multiple(false)
+                ->columnSpan(1),
+            FileUpload::make('default_image')
+                ->label(fn() => __('filament-general-settings::default.default_image'))
+                ->image()
+                ->directory('assets')
+                ->visibility('public')
+                ->moveFiles()
+                ->imageEditor()
+                ->preserveFilenames()
+                ->getUploadedFileNameForStorageUsing(fn($file) => 'default_image.' . 'png')
+                ->multiple(false)
+                ->columnSpan(1),
+            TextInput::make('address')
+                ->label(__('filament-general-settings::default.address'))
+                ->prefixIcon('heroicon-o-home')
+                ->columnSpan(3),
+            TextInput::make('map_iframe')
+                ->label(__('filament-general-settings::default.map_iframe'))
+                ->prefixIcon('heroicon-o-map-pin')
+                ->columnSpan(3),
             TextInput::make('support_email')
                 ->label(__('filament-general-settings::default.support_email'))
                 ->prefixIcon('heroicon-o-envelope'),
@@ -51,7 +71,7 @@ class ApplicationFieldsForm
                 ->hexColor()
                 ->label(__('filament-general-settings::default.theme_color'))
                 ->prefixIcon('heroicon-o-swatch')
-                ->formatStateUsing(fn (?string $state): string => $state ?? config('filament.theme.colors.primary'))
+                ->formatStateUsing(fn(?string $state): string => $state ?? config('filament.theme.colors.primary'))
                 ->helperText(__('filament-general-settings::default.theme_color_helper_text')),
 
         ];
