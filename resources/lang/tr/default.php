@@ -49,4 +49,8 @@ return [
     'amazon_ses_secret' => 'Amazon SES Gizli Anahtarı',
     'amazon_ses_region' => 'Amazon SES Bölgesi',
     'postmark_token' => 'Postmark Token',
+    'default_image' => 'Default Görsel',
+    'address' => 'Adres',
+    'map_iframe' => 'Harite Yerleştirme Kodu (Map iframe)',
+
 ];
