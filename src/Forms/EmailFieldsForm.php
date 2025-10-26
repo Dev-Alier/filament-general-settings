@@ -21,7 +21,7 @@ class EmailFieldsForm
                 ->schema([
                     Section::make([
                         Select::make('default_email_provider')
-                            ->label(__('filament-general-settings::default.default_email_provider'))
+                            ->label("TEST")
                             ->native(false)
                             ->allowHtml()
                             ->preload()
