@@ -45,7 +45,7 @@ class EmailFieldsForm
                             ->columnSpanFull(),
                         Group::make()
                             ->schema([
-                                TextInput::make('smtp_host')
+                                TextInput::make('smtp_host1')
                                     ->label(__('filament-general-settings::default.host')),
                                 TextInput::make('smtp_port')
                                     ->label(__('filament-general-settings::default.port')),
