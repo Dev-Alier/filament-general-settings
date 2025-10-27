@@ -21,6 +21,7 @@ use Joaopaulolndev\FilamentGeneralSettings\Forms\SeoFieldsForm;
 use Joaopaulolndev\FilamentGeneralSettings\Forms\SmsFieldsForm;
 use Joaopaulolndev\FilamentGeneralSettings\Forms\SocialNetworkFieldsForm;
 use Joaopaulolndev\FilamentGeneralSettings\Helpers\EmailDataHelper;
+use Joaopaulolndev\FilamentGeneralSettings\Helpers\SmsDataHelper;
 use Joaopaulolndev\FilamentGeneralSettings\Mail\TestMail;
 use Joaopaulolndev\FilamentGeneralSettings\Models\GeneralSetting;
 use Joaopaulolndev\FilamentGeneralSettings\Services\MailSettingsService;
@@ -93,6 +94,7 @@ class GeneralSettingsPage extends Page
         $this->data['theme_color'] = $this->data['theme_color'] ?? '';
         $this->data['seo_metadata'] = $this->data['seo_metadata'] ?? [];
         $this->data = EmailDataHelper::getEmailConfigFromDatabase($this->data);
+        $this->data = SmsDataHelper::getSmsConfigFromDatabase($this->data);
 
         if (isset($this->data['site_logo']) && is_string($this->data['site_logo'])) {
             $this->data['site_logo'] = [
@@ -164,7 +166,7 @@ class GeneralSettingsPage extends Page
 
         if (config('filament-general-settings.show_sms_tab')) {
             $arrTabs[] = Tab::make('Sms Tab')
-                ->label(__('filament-general-settings::default.email'))
+                ->label(__('filament-general-settings::default.sms'))
                 ->icon('heroicon-o-chat-bubble-left-ellipsis')
                 ->schema(SmsFieldsForm::get())
                 ->columns(3);
