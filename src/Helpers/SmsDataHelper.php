@@ -17,7 +17,7 @@ class SmsDataHelper
 
     public static function setSmsConfigToDatabase($data): mixed
     {
-        $data['email_settings'] = [
+        $data['sms_settings'] = [
             'netgsm_username' => $data['netgsm_username'] ?? null,
             'netgsm_password' => $data['netgsm_password'] ?? null,
             'netgsm_header' => $data['netgsm_header'] ?? null,
