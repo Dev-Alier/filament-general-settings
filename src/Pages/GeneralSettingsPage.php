@@ -18,6 +18,7 @@ use Joaopaulolndev\FilamentGeneralSettings\Forms\ApplicationFieldsForm;
 use Joaopaulolndev\FilamentGeneralSettings\Forms\CustomForms;
 use Joaopaulolndev\FilamentGeneralSettings\Forms\EmailFieldsForm;
 use Joaopaulolndev\FilamentGeneralSettings\Forms\SeoFieldsForm;
+use Joaopaulolndev\FilamentGeneralSettings\Forms\SmsFieldsForm;
 use Joaopaulolndev\FilamentGeneralSettings\Forms\SocialNetworkFieldsForm;
 use Joaopaulolndev\FilamentGeneralSettings\Helpers\EmailDataHelper;
 use Joaopaulolndev\FilamentGeneralSettings\Mail\TestMail;
@@ -161,6 +162,15 @@ class GeneralSettingsPage extends Page
             }
         }
 
+        if (config('filament-general-settings.show_sms_tab')) {
+            $arrTabs[] = Tab::make('Sms Tab')
+                ->label(__('filament-general-settings::default.email'))
+                ->icon('heroicon-o-chat-bubble-left-ellipsis')
+                ->schema(SmsFieldsForm::get())
+                ->columns(3);
+        }
+
+
         return $schema
             ->components([
                 Tabs::make('Tabs')
@@ -214,6 +224,9 @@ class GeneralSettingsPage extends Page
             $data['amazon_ses_secret'],
             $data['amazon_ses_region'],
             $data['mail_to'],
+            $data['netgsm_username'],
+            $data['netgsm_password'],
+            $data['netgsm_header'],
         );
 
         return $data;
