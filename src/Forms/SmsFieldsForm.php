@@ -15,7 +15,7 @@ class SmsFieldsForm
             TextInput::make('netgsm_password')
                 ->label(__('filament-general-settings::default.netgsm_password')),
             TextInput::make('netgsm_header')
-                ->label(__('filament-general-settings::default.google_header')),
+                ->label(__('filament-general-settings::default.netgsm_header')),
         ];
     }
 }
