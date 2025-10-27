@@ -197,6 +197,9 @@ class GeneralSettingsPage extends Page
         if (config('filament-general-settings.show_email_tab')) {
             $data = EmailDataHelper::setEmailConfigToDatabase($data);
         }
+        if (config('filament-general-settings.show_sms_tab')) {
+            $data = SmsDataHelper::setSmsConfigToDatabase($data);
+        }
         $data = $this->clearVariables($data);
 
         GeneralSetting::updateOrCreate([], $data);
