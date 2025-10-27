@@ -52,5 +52,7 @@ return [
     'default_image' => 'Default Görsel',
     'address' => 'Adres',
     'map_iframe' => 'Harite Yerleştirme Kodu (Map iframe)',
-
+    'netgsm_username' => 'NETGSM Kullanıcı Adı',
+    'netgsm_password' => 'NETGSM Parola',
+    'netgsm_header' => 'NETGSM Başlık',
 ];
