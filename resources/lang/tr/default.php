@@ -55,4 +55,5 @@ return [
     'netgsm_username' => 'NETGSM Kullanıcı Adı',
     'netgsm_password' => 'NETGSM Parola',
     'netgsm_header' => 'NETGSM Başlık',
+    'sms' => 'SMS'
 ];
