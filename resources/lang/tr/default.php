@@ -55,5 +55,15 @@ return [
     'netgsm_username' => 'NETGSM Kullanıcı Adı',
     'netgsm_password' => 'NETGSM Parola',
     'netgsm_header' => 'NETGSM Başlık',
-    'sms' => 'SMS'
+    'sms' => 'SMS',
+    'sms_settings' => 'SMS Ayarları',
+    'sms_provider' => 'SMS Sağlayıcısı',
+    'sms_provider_helper_text' => 'Tüm SMSler için kullanılacak SMS sağlayıcısıdır.',
+    'sms_sender' => 'SMS Gönderen',
+    'links' => 'Linkler',
+    'links_helper_text' => 'Sosyal ağlar veya diğer önemli sayfalar için bağlantılar ekleyin.',
+    'link_label' => 'Bağlantı Etiketi',
+    'link_url' => 'Bağlantı URLsi',
+    'not_login_ids' => 'Giriş Yapamayacak Üye Tipleri'
+
 ];
