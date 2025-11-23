@@ -17,11 +17,15 @@ use Joaopaulolndev\FilamentGeneralSettings\Forms\AnalyticsFieldsForm;
 use Joaopaulolndev\FilamentGeneralSettings\Forms\ApplicationFieldsForm;
 use Joaopaulolndev\FilamentGeneralSettings\Forms\CustomForms;
 use Joaopaulolndev\FilamentGeneralSettings\Forms\EmailFieldsForm;
+use Joaopaulolndev\FilamentGeneralSettings\Forms\LinkFieldsForm;
+use Joaopaulolndev\FilamentGeneralSettings\Forms\LoginFieldsForm;
 use Joaopaulolndev\FilamentGeneralSettings\Forms\SeoFieldsForm;
 use Joaopaulolndev\FilamentGeneralSettings\Forms\SmsFieldsForm;
 use Joaopaulolndev\FilamentGeneralSettings\Forms\SocialNetworkFieldsForm;
 use Joaopaulolndev\FilamentGeneralSettings\Helpers\EmailDataHelper;
+use Joaopaulolndev\FilamentGeneralSettings\Helpers\LinkDataHelper;
 use Joaopaulolndev\FilamentGeneralSettings\Helpers\SmsDataHelper;
+use Joaopaulolndev\FilamentGeneralSettings\Helpers\SocialNetworkDataHelper;
 use Joaopaulolndev\FilamentGeneralSettings\Mail\TestMail;
 use Joaopaulolndev\FilamentGeneralSettings\Models\GeneralSetting;
 use Joaopaulolndev\FilamentGeneralSettings\Services\MailSettingsService;
@@ -88,13 +92,16 @@ class GeneralSettingsPage extends Page
     public function mount(): void
     {
         $this->data = GeneralSetting::first()?->toArray() ?: [];
-
         $this->data['seo_description'] = $this->data['seo_description'] ?? '';
         $this->data['seo_preview'] = $this->data['seo_preview'] ?? '';
         $this->data['theme_color'] = $this->data['theme_color'] ?? '';
         $this->data['seo_metadata'] = $this->data['seo_metadata'] ?? [];
+        $this->data['more_configs'] = $this->data['more_configs'] ?? [];
+        $this->data['links'] = $this->data['links'] ?? [];
+        $this->data['not_login_ids'] = $this->data['not_login_ids'] ?? [];
         $this->data = EmailDataHelper::getEmailConfigFromDatabase($this->data);
         $this->data = SmsDataHelper::getSmsConfigFromDatabase($this->data);
+        $this->data = SocialNetworkDataHelper::getSocialNetworkFromDatabase($this->data);
 
         if (isset($this->data['site_logo']) && is_string($this->data['site_logo'])) {
             $this->data['site_logo'] = [
@@ -172,6 +179,23 @@ class GeneralSettingsPage extends Page
                 ->columns(3);
         }
 
+        if (config('filament-general-settings.show_links_tab')) {
+
+            $arrTabs[] = Tab::make('Links Tab')
+                ->label(__('filament-general-settings::default.links'))
+                ->icon('heroicon-o-link')
+                ->schema(LinkFieldsForm::get())
+                ->columns(1);
+        }
+
+        if (config('filament-general-settings.not_login_ids')) {
+
+            $arrTabs[] = Tab::make('Login Tab')
+                ->label(__('filament-general-settings::default.not_login_ids'))
+                ->icon('heroicon-o-link')
+                ->schema(LoginFieldsForm::get())
+                ->columns(1);
+        }
 
         return $schema
             ->components([
@@ -194,11 +218,15 @@ class GeneralSettingsPage extends Page
     public function update(): void
     {
         $data = $this->form->getState();
+        //dd($data);
         if (config('filament-general-settings.show_email_tab')) {
             $data = EmailDataHelper::setEmailConfigToDatabase($data);
         }
         if (config('filament-general-settings.show_sms_tab')) {
             $data = SmsDataHelper::setSmsConfigToDatabase($data);
+        }
+        if (config('filament-general-settings.show_social_networks_tab')) {
+            $data = SocialNetworkDataHelper::setSocialNetworkToDatabase($data);
         }
         $data = $this->clearVariables($data);
 
